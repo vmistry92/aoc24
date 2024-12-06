@@ -44,6 +44,6 @@ def updates() -> list[list[int]]:
 
 def test_implementation(rules, updates):
     p1, p2 = implementation(rules, updates)
-    
+
     assert p1 == 143
     assert p2 == 123

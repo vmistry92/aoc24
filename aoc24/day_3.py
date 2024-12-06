@@ -1,12 +1,12 @@
-import re
 import os
+import re
 
 
 def get_input() -> list[str]:
     data_file_path = os.path.join(os.path.dirname(__file__), "../data/day_3.txt")
     with open(data_file_path, "r") as fp:
         return [line.replace("\n", "") for line in fp.readlines()]
-    
+
 
 def part_1(instructions: list[str]) -> int:
     answer = 0
@@ -17,7 +17,7 @@ def part_1(instructions: list[str]) -> int:
         for match in matches:
             numbers = match[4:-1].split(",")
             answer += int(numbers[0]) * int(numbers[1])
-    
+
     return answer
 
 
@@ -28,7 +28,7 @@ def _get_match_type(match: tuple[str, str, str]) -> str:
         return "DO"
     if match[2] != "":
         return "DON'T"
-    
+
     raise NotImplementedError(f"Unknown Match {match}")
 
 

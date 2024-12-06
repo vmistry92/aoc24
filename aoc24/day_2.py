@@ -16,7 +16,7 @@ def _get_direction_and_magnitude(current: int, next: int) -> tuple[int, int]:
     magnitude = abs(difference)
     if difference == 0:
         return 0, 0
-    
+
     direction = 1 if difference < 0 else -1
     return direction, magnitude
 
@@ -32,7 +32,7 @@ def _is_safe_row(row: list[int]) -> bool:
 
         if magnitude > 3 or magnitude < 1:
             return False
-        
+
         if first_direction != direction:
             return False
 
@@ -56,12 +56,12 @@ def part_2(_input: list[list[int]]) -> int:
         if safe_row:
             safe_row_count += 1
             continue
-        
+
         for i, _ in enumerate(row):
             to_test = row.copy()
             to_test.pop(i)
             safe_row = _is_safe_row(to_test)
-            
+
             if safe_row:
                 safe_row_count += 1
                 break

@@ -1,10 +1,11 @@
 import os
 
+
 def get_input() -> list[list[str]]:
     data_file_path = os.path.join(os.path.dirname(__file__), "../data/day_4.txt")
     with open(data_file_path, "r") as fp:
         return [[c for c in line.replace("\n", "")] for line in fp.readlines()]
-    
+
 
 def _part_1(grid: list[list], pos_x: int, pos_y: int) -> int:
     instances_of_xmas = 0
@@ -21,21 +22,21 @@ def _part_1(grid: list[list], pos_x: int, pos_y: int) -> int:
 
                     if check_x < 0 or check_y < 0:
                         raise IndexError
-                    
+
                     if check_y > len(grid) or check_x > len(grid[0]):
                         raise IndexError
 
                     if grid[check_y][check_x] != c:
                         increment_instances = False
                         break
-                
+
                 instances_of_xmas += 1 if increment_instances else 0
-            
+
             except IndexError:
                 continue
-    
+
     return instances_of_xmas
-    
+
 
 def _part_2(grid: list[list], pos_x: int, pos_y: int) -> int:
     to_find = ["M", "M", "S", "S"]
@@ -50,10 +51,10 @@ def _part_2(grid: list[list], pos_x: int, pos_y: int) -> int:
 
                 if check_x < 0 or check_y < 0:
                     raise IndexError
-                
+
                 if check_y > len(grid) or check_x > len(grid[0]):
                     raise IndexError
-                
+
                 # There needs to be 2 Ms and 2s
                 to_find.remove(grid[check_y][check_x])
 
@@ -70,16 +71,15 @@ def _part_2(grid: list[list], pos_x: int, pos_y: int) -> int:
 
                 if opposite_y > len(grid) or opposite_x > len(grid[0]):
                     raise IndexError
-                
+
                 if grid[check_y][check_x] == grid[opposite_y][opposite_x]:
                     raise ValueError
 
-            
             except IndexError:
                 return 0
             except ValueError:
                 return 0
-    
+
     return 0 if to_find else 1
 
 

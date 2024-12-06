@@ -1,5 +1,4 @@
 import os
-
 from functools import lru_cache
 
 
@@ -10,7 +9,7 @@ def get_input() -> tuple[list, list]:
     with open(data_file_path, "r") as fp:
         for line in fp.readlines():
             _input.append(line.replace("\n", "").split("   "))
-    
+
     left_list = sorted([int(i[0]) for i in _input])
     right_list = sorted([int(i[1]) for i in _input])
 

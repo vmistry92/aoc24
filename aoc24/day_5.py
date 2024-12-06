@@ -1,5 +1,4 @@
 import os
-
 from collections import defaultdict
 
 
@@ -29,7 +28,7 @@ def _evaluate_rules(update: list[int], ordering_rules: dict[int, list]) -> tuple
         if page_number in ordering_rules:
             for rule in ordering_rules[page_number]:
                 if rule in update:
-                    if rule in update[i + 1:]:
+                    if rule in update[i + 1 :]:
                         valid_rules.append((page_number, rule))
                     else:
                         rule_breaks.append((page_number, rule))
@@ -54,10 +53,10 @@ def _correct_update(update: list[int], rule_breaks: list[tuple], valid_rules: li
 
     combined_rules = _process_rules(rule_breaks + valid_rules)
     rule_breaks, valid_rules = _evaluate_rules(corrected_update, combined_rules)
-    
+
     if rule_breaks:
         corrected_update = _correct_update(corrected_update, rule_breaks, valid_rules)
-        
+
     return corrected_update
 
 
