@@ -90,11 +90,11 @@ def is_in_bounds(lab_map: list[list[str]], position: tuple[int, int]) -> bool:
 
 def part_1(lab_map: list[list[str]]) -> dict[tuple[int, int], set]:
     in_bounds = True
-    positions_and_headings = defaultdict(set)
+    positions = set()
     position, heading, obstacles = scan_grid(lab_map)
 
     while in_bounds:
-        positions_and_headings[position].add(heading)
+        positions.add(position)
         next_position = get_next_position(position, heading)
 
         if next_position in obstacles:
@@ -104,7 +104,7 @@ def part_1(lab_map: list[list[str]]) -> dict[tuple[int, int], set]:
         in_bounds = is_in_bounds(lab_map, next_position)
         position = next_position
 
-    return positions_and_headings
+    return positions
 
 
 def detect_cycle(
@@ -116,7 +116,7 @@ def detect_cycle(
     return heading in positions_and_headings.get(position, set())
 
 
-def part_2(lab_map: list[list[str]], positions_visited: list[tuple[int, int]]) -> int:
+def part_2(lab_map: list[list[str]], positions_visited: set[tuple[int, int]]) -> int:
     answer = 0
     initial_position, initial_heading, obstacles = scan_grid(lab_map)
 
@@ -155,6 +155,6 @@ def part_2(lab_map: list[list[str]], positions_visited: list[tuple[int, int]]) -
 
 if __name__ == "__main__":
     _lab_map = get_input()
-    _positions_and_headings = part_1(_lab_map)
-    print(f"Day 6 Part 1: {len(_positions_and_headings)}")
-    print(f"Day 6 Part 2: {part_2(_lab_map, list(_positions_and_headings.keys()))}")
+    _positions = part_1(_lab_map)
+    print(f"Day 6 Part 1: {len(_positions)}")
+    print(f"Day 6 Part 2: {part_2(_lab_map, _positions)}")
