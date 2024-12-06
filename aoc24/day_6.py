@@ -67,6 +67,14 @@ def scan_grid(lab_map: list[list[str]]) -> tuple[tuple, tuple, set]:
     return position, heading, obstacles
 
 
+def turn_right(heading: tuple[int, int]) -> tuple[int, int]:
+    return {UP: RIGHT, RIGHT: DOWN, DOWN: LEFT, LEFT: UP}[heading]
+
+
+def get_next_position(position: tuple[int, int], heading: tuple[int, int]) -> tuple[int, int]:
+    return (position[0] + heading[0], position[1] + heading[1])
+
+
 def is_in_bounds(lab_map: list[list[str]], position: tuple[int, int]) -> bool:
     if position[0] < 0 or position[1] < 0:
         return False
@@ -87,10 +95,10 @@ def part_1(lab_map: list[list[str]]) -> dict[tuple[int, int], set]:
 
     while in_bounds:
         positions_and_headings[position].add(heading)
-        next_position = (position[0] + heading[0], position[1] + heading[1])
+        next_position = get_next_position(position, heading)
 
         if next_position in obstacles:
-            heading = {UP: RIGHT, RIGHT: DOWN, DOWN: LEFT, LEFT: UP}[heading]
+            heading = turn_right(heading)
             continue
 
         in_bounds = is_in_bounds(lab_map, next_position)
@@ -130,10 +138,10 @@ def part_2(lab_map: list[list[str]], positions_visited: list[tuple[int, int]]) -
 
         while in_bounds and not has_cycle:
             positions_and_headings[position].add(heading)
-            next_position = (position[0] + heading[0], position[1] + heading[1])
+            next_position = get_next_position(position, heading)
 
             if next_position in obstacles_with_candidate:
-                heading = {UP: RIGHT, RIGHT: DOWN, DOWN: LEFT, LEFT: UP}[heading]
+                heading = turn_right(heading)
                 continue
 
             in_bounds = is_in_bounds(lab_map, next_position)
